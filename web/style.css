@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --color-default: #e2e8f0;
+  --color-hover: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  visibility: hidden;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* ─── Eye / Logo ─── */
+#eye {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  /* Default ring colors — JS overrides these per target */
+  --ring-primary: #4ade80;
+  --ring-secondary: #60a5fa;
+  z-index: 10;
+}
+
+#eyeImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0.9);
+  transition: all 300ms ease;
+  z-index: 2;
+}
+
+.eye-hover #eyeImg {
+  filter: brightness(1.15) drop-shadow(0 0 10px rgba(255,255,255,0.2));
+  transform: scale(1.08);
+}
+
+/* ─── Rotating Scanner Rings (colour changes with target type) ─── */
+.scanner-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.ring-outer {
+  width: 78px;
+  height: 78px;
+  border: 2px solid transparent;
+  border-top-color: var(--ring-primary);
+  border-right-color: color-mix(in srgb, var(--ring-primary) 35%, transparent);
+  animation: spinCW 2s linear infinite;
+}
+
+.ring-inner {
+  width: 66px;
+  height: 66px;
+  border: 1.5px solid transparent;
+  border-bottom-color: var(--ring-secondary);
+  border-left-color: color-mix(in srgb, var(--ring-secondary) 30%, transparent);
+  animation: spinCCW 1.5s linear infinite;
+}
+
+.ring-pulse {
+  width: 92px;
+  height: 92px;
+  border: 1px solid color-mix(in srgb, var(--ring-primary) 25%, transparent);
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+.eye-hover .scanner-ring {
+  opacity: 1;
+}
+
+@keyframes spinCW {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  from { transform: translate(-50%, -50%) rotate(360deg); }
+  to   { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50%      { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+}
+
+/* ─── Options (pushed farther right so they don't touch the logo) ─── */
+#options-wrapper {
+  position: absolute;
+  top: calc(50% - 70pt);
+  left: calc(50% + 58pt);   /* was 32pt — now plenty of breathing room */
+  display: flex;
+  flex-direction: column;
+  gap: 6pt;
+  z-index: 10;
+}
+
+/* ─── Option Card ─── */
+.option-container {
+  position: relative;
+  color: var(--color-default);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 10.5pt;
+  font-weight: 500;
+  height: 34pt;
+  min-width: 150pt;
+  max-width: 200pt;
+  padding: 0 12pt 0 0;
+  border-radius: 8pt;
+  background: linear-gradient(90deg, rgba(18, 18, 22, 0.88) 0%, rgba(28, 28, 34, 0.82) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: all 200ms ease;
+  cursor: pointer;
+  transform-origin: left center;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: slideIn 350ms ease forwards;
+}
+
+.option-container:nth-child(1) { animation-delay: 20ms; }
+.option-container:nth-child(2) { animation-delay: 70ms; }
+.option-container:nth-child(3) { animation-delay: 120ms; }
+.option-container:nth-child(4) { animation-delay: 170ms; }
+.option-container:nth-child(5) { animation-delay: 220ms; }
+.option-container:nth-child(6) { animation-delay: 270ms; }
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.option-container:hover {
+  background: linear-gradient(90deg, rgba(28, 28, 36, 0.95) 0%, rgba(38, 38, 48, 0.9) 100%);
+  color: var(--color-hover);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5pt) scale(1.02);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Connector Dot (glows with option color) ─── */
+.connector-dot {
+  position: absolute;
+  left: -5pt;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6pt;
+  height: 6pt;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+.option-container:hover .connector-dot {
+  transform: translateY(-50%) scale(1.4);
+}
+
+/* ─── Card Content ─── */
+.option-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  padding-left: 10pt;
+  gap: 8pt;
+}
+
+/* ─── Icon / Inner Dot ─── */
+.option-icon {
+  font-size: 10.5pt;
+  width: 14pt;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.option-dot {
+  display: inline-block;
+  width: 7pt;
+  height: 7pt;
+  min-width: 7pt;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Label ─── */
+.option-label {
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
