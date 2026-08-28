@@ -27,8 +27,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
   /* Default ring colors — JS overrides these per target */
   --ring-primary: #4ade80;
   --ring-secondary: #60a5fa;
@@ -63,8 +63,8 @@ body {
 }
 
 .ring-outer {
-  width: 78px;
-  height: 78px;
+  width: 62px;
+  height: 62px;
   border: 2px solid transparent;
   border-top-color: var(--ring-primary);
   border-right-color: color-mix(in srgb, var(--ring-primary) 35%, transparent);
@@ -72,8 +72,8 @@ body {
 }
 
 .ring-inner {
-  width: 66px;
-  height: 66px;
+  width: 53px;
+  height: 53px;
   border: 1.5px solid transparent;
   border-bottom-color: var(--ring-secondary);
   border-left-color: color-mix(in srgb, var(--ring-secondary) 30%, transparent);
@@ -81,8 +81,8 @@ body {
 }
 
 .ring-pulse {
-  width: 92px;
-  height: 92px;
+  width: 74px;
+  height: 74px;
   border: 1px solid color-mix(in srgb, var(--ring-primary) 25%, transparent);
   animation: pulseRing 2s ease-in-out infinite;
 }
